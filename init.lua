@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -100,9 +100,7 @@ vim.g.have_nerd_font = false
 
 -- Make line numbers default
 vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -176,10 +174,10 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
+vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
+vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
+vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -189,6 +187,48 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- Movement keymaps
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+
+-- Neotest keymaps
+vim.api.nvim_set_keymap('n', '<leader>tr', '<cmd>lua require("neotest").run.run()<CR>', { noremap = true, silent = true, desc = 'Run nearest test' })
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>td',
+  '<cmd>lua require("neotest").run.run({strategy = "dap"})<CR>',
+  { noremap = true, silent = true, desc = 'Debug nearest test' }
+)
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>tt',
+  '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>',
+  { noremap = true, silent = true, desc = 'Run current file tests' }
+)
+vim.api.nvim_set_keymap('n', '<leader>tl', '<cmd>lua require("neotest").run.run_last()<CR>', { noremap = true, silent = true, desc = 'Run last test' })
+vim.api.nvim_set_keymap('n', '<leader>ts', '<cmd>lua require("neotest").summary.toggle()<CR>', { noremap = true, silent = true, desc = 'Toggle test summary' })
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>to',
+  '<cmd>lua require("neotest").output.open({ enter = true })<CR>',
+  { noremap = true, silent = true, desc = 'Show test output' }
+)
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>tO',
+  '<cmd>lua require("neotest").output_panel.toggle()<CR>',
+  { noremap = true, silent = true, desc = 'Toggle test output panel' }
+)
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>tT',
+  '<cmd>lua require("neotest").run.run(vim.fn.getcwd())<CR>',
+  { noremap = true, silent = true, desc = 'Run all tests in CWD' }
+)
+
+-- Neotree keymaps
+vim.keymap.set('n', '<leader>e', ':Neotree reveal <CR>', { noremap = true, silent = true })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -565,7 +605,10 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        -- gopls = {},
+        gopls = {},
+        csharp_ls = {},
+        html = {},
+        jsonls = {},
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -772,6 +815,7 @@ require('lazy').setup({
     end,
   },
 
+  -- Colorschemes
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is.
@@ -783,9 +827,20 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      -- vim.cmd.colorscheme 'tokyonight-night'
+      -- vim.cmd.colorscheme 'tokyonight'
 
       -- You can configure highlights by doing something like:
+      -- vim.cmd.hi 'Comment gui=none'
+    end,
+  },
+
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    priority = 1000,
+    init = function()
+      vim.cmd.colorscheme 'rose-pine'
       vim.cmd.hi 'Comment gui=none'
     end,
   },
@@ -884,7 +939,7 @@ require('lazy').setup({
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -909,3 +964,5 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+vim.opt.wrap = false
