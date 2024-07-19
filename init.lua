@@ -966,3 +966,6 @@ require('lazy').setup({
 -- vim: ts=2 sts=2 sw=2 et
 
 vim.opt.wrap = false
+--
+-- Set the highlight color for LspSignatureActiveParameter
+vim.cmd [[highlight LspSignatureActiveParameter guifg=#f6c177 guibg=#000000 ctermfg=214 ctermbg=Black]]
