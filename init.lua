@@ -606,7 +606,8 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         gopls = {},
-        csharp_ls = {},
+        -- csharp_ls = {},
+        omnisharp = {},
         html = {},
         jsonls = {},
         -- pyright = {},
