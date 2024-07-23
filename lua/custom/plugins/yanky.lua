@@ -13,5 +13,7 @@ return {
     vim.keymap.set('n', '<c-n>', '<Plug>(YankyNextEntry)')
 
     require('telescope').load_extension 'yank_history'
+
+    vim.keymap.set('n', '<leader>y', ':Telescope yank_history<CR>')
   end,
 }
