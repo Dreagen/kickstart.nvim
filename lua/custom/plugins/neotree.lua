@@ -9,12 +9,5 @@ return {
     opts = {
       close_if_last_window = true,
     },
-    -- keys = {
-    --   {
-    --     "E",
-    --     "<cmd>lua require('spider').motion('e')<CR>",
-    --     mode = { "n", "o", "x" },
-    --   },
-    -- },
   },
 }
