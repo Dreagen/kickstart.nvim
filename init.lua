@@ -141,7 +141,7 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -976,5 +976,7 @@ vim.opt.wrap = false
 vim.cmd [[highlight LspSignatureActiveParameter guifg=#ff0000 guibg=#000000 ctermfg=Red ctermbg=Black]]
 
 -- tabs and spaces
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.expandtab = true -- Convert tabs to spaces
+vim.opt.shiftwidth = 4 -- The number of spaces inserted for each indentation
+vim.opt.softtabstop = 4 -- Number of spaces that a <Tab> counts for while performing editing operations
+vim.opt.tabstop = 4 -- Number of spaces that a <Tab> counts for
