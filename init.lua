@@ -974,3 +974,7 @@ vim.opt.wrap = false
 -- Set the highlight color for LspSignatureActiveParameter
 -- vim.cmd [[highlight LspSignatureActiveParameter guifg=#f6c177 guibg=#000000 ctermfg=Red ctermbg=Black]]
 vim.cmd [[highlight LspSignatureActiveParameter guifg=#ff0000 guibg=#000000 ctermfg=Red ctermbg=Black]]
+
+-- tabs and spaces
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
