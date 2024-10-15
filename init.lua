@@ -857,14 +857,22 @@ require('lazy').setup({
       -- vim.cmd.hi 'Comment gui=none'
     end,
   },
-
+  {
+    'shaunsingh/nord.nvim',
+    name = 'nord',
+    priority = 1000,
+    init = function()
+      vim.cmd.colorscheme 'nord'
+      -- vim.cmd.hi 'Comment gui=none'
+    end,
+  },
   {
     'rose-pine/neovim',
     name = 'rose-pine',
     priority = 1000,
     init = function()
       vim.cmd.colorscheme 'rose-pine'
-      vim.cmd.hi 'Comment gui=none'
+      -- vim.cmd.hi 'Comment gui=none'
     end,
   },
 
