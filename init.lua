@@ -769,8 +769,22 @@ require('lazy').setup({
         },
       })
 
-      vim.api.nvim_create_user_command('FormatMappedJson', function()
-        vim.cmd '%s/\\\\"/\\"/g'
+      vim.api.nvim_create_user_command('ExtractMappedJson', function()
+        -- Get the current buffer content
+        local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+        local json_line = table.concat(lines, '\n')
+
+        -- Find the JSON within the MappedJSON field
+        local json_content = json_line:match '"MappedJSON":"({.-})"'
+        if json_content then
+          -- Replace escaped quotes with normal quotes
+          json_content = json_content:gsub('\\"', '"')
+
+          -- Clear the buffer and set the new JSON content
+          vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(json_content, '\n'))
+        else
+          print 'No JSON object found in MappedJSON field'
+        end
       end, {})
 
       cmp.setup {
@@ -861,15 +875,15 @@ require('lazy').setup({
       -- vim.cmd.hi 'Comment gui=none'
     end,
   },
-  {
-    'shaunsingh/nord.nvim',
-    name = 'nord',
-    priority = 1000,
-    init = function()
-      vim.cmd.colorscheme 'nord'
-      -- vim.cmd.hi 'Comment gui=none'
-    end,
-  },
+  -- {
+  --   'shaunsingh/nord.nvim',
+  --   name = 'nord',
+  --   priority = 1000,
+  --   init = function()
+  --     vim.cmd.colorscheme 'nord'
+  --     -- vim.cmd.hi 'Comment gui=none'
+  --   end,
+  -- },
   {
     'rose-pine/neovim',
     name = 'rose-pine',
