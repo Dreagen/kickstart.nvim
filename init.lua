@@ -780,6 +780,9 @@ require('lazy').setup({
           -- Replace escaped quotes with normal quotes
           json_content = json_content:gsub('\\"', '"')
 
+          -- Remove excessive whitespace
+          json_content = json_content:gsub('%s+', ' ')
+
           -- Clear the buffer and set the new JSON content
           vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(json_content, '\n'))
         else
