@@ -769,6 +769,10 @@ require('lazy').setup({
         },
       })
 
+      vim.api.nvim_create_user_command('FormatMappedJson', function()
+        vim.cmd '%s/\\\\"/\\"/g'
+      end, {})
+
       cmp.setup {
         snippet = {
           expand = function(args)
