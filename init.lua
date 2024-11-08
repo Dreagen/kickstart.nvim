@@ -101,6 +101,21 @@ vim.g.have_nerd_font = true
 -- Make line numbers default
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.g.status_line_enabled = false
+
+function ToggleAllLines()
+  if vim.g.status_line_enabled then
+    -- Remove the status line
+    vim.opt.statuscolumn = ''
+  else
+    -- Apply the status line
+    -- vim.opt.statuscolumn = '%#NonText#%{&nu?v:lnum:""}' .. '%=%{&rnu&&(v:lnum%2)?"\\ ".v:relnum:""}' .. '%#LineNr#%{&rnu&&!(v:lnum%2)?"\\ ".v:relnum:""}'
+    vim.opt.statuscolumn = '%#NonText#%{&nu?v:lnum:""}' .. '%=%{&rnu?"\\ ".v:relnum." ":""}'
+  end
+  -- Toggle the state
+  vim.g.status_line_enabled = not vim.g.status_line_enabled
+end
+vim.api.nvim_create_user_command('ToggleAllLines', ToggleAllLines, {})
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -783,8 +798,18 @@ require('lazy').setup({
           -- Remove excessive whitespace
           json_content = json_content:gsub('%s+', ' ')
 
+          -- Fix url slashes
+          json_content = json_content:gsub('\\\\/', '/')
+
           -- Clear the buffer and set the new JSON content
           vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(json_content, '\n'))
+
+          vim.bo.filetype = 'json'
+          vim.defer_fn(function()
+            vim.lsp.buf.format { async = true }
+          end, 200)
+          -- vim.cmd 'normal! <leader>f'
+          -- vim.cmd 'silent! %!jq .'
         else
           print 'No JSON object found in MappedJSON field'
         end
