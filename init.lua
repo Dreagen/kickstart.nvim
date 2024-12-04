@@ -253,20 +253,6 @@ vim.api.nvim_set_keymap(
 -- Neotree keymaps
 vim.keymap.set('n', '<leader>e', ':Neotree reveal <CR>', { noremap = true, silent = true })
 
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
-
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
-
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -1058,11 +1044,33 @@ require('lazy').setup({
 vim.opt.wrap = false
 --
 -- Set the highlight color for LspSignatureActiveParameter
--- vim.cmd [[highlight LspSignatureActiveParameter guifg=#f6c177 guibg=#000000 ctermfg=Red ctermbg=Black]]
-vim.cmd [[highlight LspSignatureActiveParameter guifg=#ff0000 guibg=#000000 ctermfg=Red ctermbg=Black]]
+vim.cmd [[highlight LspSignatureActiveParameter guifg=#000000 guibg=#ADD8E6 ctermfg=Red ctermbg=Black]]
 
 -- tabs and spaces
 vim.opt.expandtab = true -- Convert tabs to spaces
 vim.opt.shiftwidth = 4 -- The number of spaces inserted for each indentation
 vim.opt.softtabstop = 4 -- Number of spaces that a <Tab> counts for while performing editing operations
 vim.opt.tabstop = 4 -- Number of spaces that a <Tab> counts for
+--
+-- [[ Basic Autocommands ]]
+--  See `:help lua-guide-autocommands`
+
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+--  See `:help vim.highlight.on_yank()`
+
+vim.cmd [[
+  highlight YankHighlight guibg=#ADD8E6 guifg=#000000
+]]
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    print 'Yank event triggered!'
+    vim.highlight.on_yank {
+      higroup = 'YankHighlight',
+      timeout = 150,
+    }
+  end,
+})
