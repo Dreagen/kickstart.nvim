@@ -1060,6 +1060,7 @@ vim.opt.tabstop = 4 -- Number of spaces that a <Tab> counts for
 --  See `:help vim.highlight.on_yank()`
 
 vim.cmd [[
+  highlight Visual guibg=#524c80
   highlight YankHighlight guibg=#ADD8E6 guifg=#000000
 ]]
 
