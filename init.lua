@@ -783,6 +783,41 @@ require('lazy').setup({
         },
       })
 
+      local sqlcmd_env = {
+        fixed_width = vim.env.SQLCMDMAXFIXEDTYPEWIDTH or nil,
+        var_width = vim.env.SQLCMDMAXVARTYPEWIDTH or nil,
+      }
+      --
+      -- Function to enable wide column mode
+      local function enable_wide_columns()
+        vim.env.SQLCMDMAXFIXEDTYPEWIDTH = '12000'
+        vim.env.SQLCMDMAXVARTYPEWIDTH = '12000'
+        print 'Wide column mode enabled for sqlcmd'
+      end
+
+      -- Function to reset to default column mode
+      local function disable_wide_columns()
+        vim.env.SQLCMDMAXFIXEDTYPEWIDTH = sqlcmd_env.fixed_width
+        vim.env.SQLCMDMAXVARTYPEWIDTH = sqlcmd_env.var_width
+        print 'Wide column mode disabled for sqlcmd'
+      end
+
+      -- Toggle function for convenience
+      local wide_columns_enabled = false
+      local function toggle_wide_columns()
+        if wide_columns_enabled then
+          disable_wide_columns()
+        else
+          enable_wide_columns()
+        end
+        wide_columns_enabled = not wide_columns_enabled
+      end
+      --
+      -- Expose functions for easy mapping or use
+      vim.api.nvim_create_user_command('EnableWideColumns', enable_wide_columns, {})
+      vim.api.nvim_create_user_command('DisableWideColumns', disable_wide_columns, {})
+      vim.api.nvim_create_user_command('ToggleWideColumns', toggle_wide_columns, {})
+
       vim.api.nvim_create_user_command('ExtractMappedJson', function()
         -- Get the current buffer content
         local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
@@ -1062,14 +1097,13 @@ vim.opt.tabstop = 4 -- Number of spaces that a <Tab> counts for
 vim.cmd [[
   highlight Visual guibg=#524c80
   highlight YankHighlight guibg=#ADD8E6 guifg=#000000
-  highlight Normal guibg=None
+  " highlight Normal guibg=None
 ]]
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
-    print 'Yank event triggered!'
     vim.highlight.on_yank {
       higroup = 'YankHighlight',
       timeout = 150,
