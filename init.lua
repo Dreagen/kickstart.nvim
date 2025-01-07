@@ -637,7 +637,7 @@ require('lazy').setup({
         jsonls = {},
         elixirls = {},
         -- pyright = {},
-        -- rust_analyzer = {},
+        rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -1110,3 +1110,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     }
   end,
 })
+
+function CloseOthers()
+  local bufs = vim.api.nvim_list_bufs()
+  local current_buf = vim.api.nvim_get_current_buf()
+  for _, i in ipairs(bufs) do
+    if i ~= current_buf then
+      vim.api.nvim_buf_delete(i, {})
+    end
+  end
+end
+vim.api.nvim_create_user_command('CloseOthers', CloseOthers, {})
