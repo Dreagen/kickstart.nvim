@@ -779,7 +779,8 @@ require('lazy').setup({
       cmp.setup.filetype({ 'sql' }, {
         sources = {
           { name = 'vim-dadbod-completion' },
-          { name = 'buffer' },
+          -- Add if you want completion for other items in the buffer
+          -- { name = 'buffer' },
         },
       })
 
@@ -1116,7 +1117,7 @@ function CloseOthers()
   local current_buf = vim.api.nvim_get_current_buf()
   for _, i in ipairs(bufs) do
     if i ~= current_buf then
-      vim.api.nvim_buf_delete(i, {})
+      vim.api.nvim_buf_delete(i, { force = true })
     end
   end
 end
