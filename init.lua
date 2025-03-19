@@ -1125,3 +1125,20 @@ function CloseOthers()
   end
 end
 vim.api.nvim_create_user_command('CloseOthers', CloseOthers, {})
+
+-- Neorg concealer fixes
+-- These groups allow customization of the Neorg highlights
+vim.api.nvim_set_hl(0, '@neorg.markup.bold.norg', { link = 'NeorgCustomBold' })
+vim.api.nvim_set_hl(0, '@neorg.markup.italic.norg', { link = 'NeorgCustomItalic' })
+vim.api.nvim_set_hl(0, '@neorg.markup.strikethrough.norg', { link = 'NeorgCustomStrikethrough' })
+vim.api.nvim_set_hl(0, '@neorg.links.description.norg', { link = 'NeorgCustomLink' })
+
+-- This autocommand allows for automatic concealing of Neorg files.
+-- There is a plugin already that does that, but this is a failsafe.
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
+  pattern = { '*.norg' },
+  callback = function()
+    vim.opt.conceallevel = 2
+    vim.opt.concealcursor = 'nc'
+  end,
+})
