@@ -1,43 +1,22 @@
--- return {
---   {
---     'CopilotC-Nvim/CopilotChat.nvim',
---     dependencies = {
---       { 'zbirenbaum/copilot.lua' }, -- or github/copilot.vim
---       { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
---     },
---     opts = {
---       debug = true, -- Enable debugging
---       -- See Configuration section for rest
---     },
---     -- See Commands section for default commands if you want to lazy load on them
---     keys = {
---       {
---         '<leader>co',
---         ':CopilotChatOpen<CR>',
---         mode = { 'n', 'o', 'x' },
---       },
---     },
---   },
--- }
-
 return {
   {
     'CopilotC-Nvim/CopilotChat.nvim',
+    branch = 'main',
     dependencies = {
-      { 'github/copilot.vim' }, -- or zbirenbaum/copilot.lua
-      { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
+      'github/copilot.vim', -- or zbirenbaum/copilot.lua
+      'nvim-lua/plenary.nvim', -- for curl, log wrapper
     },
-    build = 'make tiktoken', -- Only on MacOS or Linux
     opts = {
-      -- See Configuration section for options
+      model = 'claude-3.7-sonnet',
     },
     keys = {
-      {
-        '<leader>co',
-        ':CopilotChatOpen<CR>',
-        mode = { 'n', 'o', 'x' },
-      },
+      { '<leader>ac', ':CopilotChatOpen<CR>', mode = { 'n', 'o', 'x' } },
+      { '<leader>ae', ':CopilotChatExplain<CR>', mode = { 'v' } },
+      { '<leader>ar', ':CopilotChatReview<CR>', mode = { 'v' } },
+      { '<leader>af', ':CopilotChatFix<CR>', mode = { 'v' } },
+      { '<leader>ao', ':CopilotChatOptimize<CR>', mode = { 'v' } },
+      { '<leader>at', ':CopilotChatTests<CR>', mode = { 'v' } },
+      { '<leader>am', ':CopilotChatCommit<CR>', mode = { 'n' } },
     },
-    -- See Commands section for default commands if you want to lazy load on them
   },
 }
