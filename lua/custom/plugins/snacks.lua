@@ -23,21 +23,49 @@ return {
       function()
         Snacks.picker.buffers()
       end,
-      desc = 'Buffers',
+      desc = 'Search Buffers',
     },
     {
       '<leader>sg',
       function()
         Snacks.picker.grep()
       end,
-      desc = 'Grep',
+      desc = 'Search Grep',
+    },
+    {
+      '<leader>sr',
+      function()
+        Snacks.picker.resume()
+      end,
+      desc = 'Search Resume',
+    },
+    {
+      '<leader>s.',
+      function()
+        Snacks.picker.recent()
+      end,
+      desc = 'Search Recent',
+    },
+    {
+      '<leader>sh',
+      function()
+        Snacks.picker.help()
+      end,
+      desc = 'Search Help',
+    },
+    {
+      '<leader>sk',
+      function()
+        Snacks.picker.keymaps()
+      end,
+      desc = 'Search Key Maps',
     },
     {
       '<leader>:',
       function()
         Snacks.picker.command_history()
       end,
-      desc = 'Command History',
+      desc = 'Search Command History',
     },
   },
 }
