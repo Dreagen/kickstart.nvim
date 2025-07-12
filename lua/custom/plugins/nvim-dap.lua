@@ -10,24 +10,29 @@ return {
 
       dap.adapters.coreclr = {
         type = 'executable',
-        command = '/home/nick/dev/netcoredbg/build/src/netcoredbg',
+        command = '/usr/bin/netcoredbg',
         args = { '--interpreter=vscode' },
       }
 
       dap.configurations.cs = {
         {
           type = 'coreclr',
-          name = 'launch - netcoredbg',
+          name = 'Launch .NET DLL (Debug)',
           request = 'launch',
           program = function()
-            return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+            -- Dynamically look for testhost.dll in bin/Debug/**/testhost.dll
+            local matches = vim.fn.glob('./bin/Debug/**/testhost.dll', false, true)
+            if #matches == 0 then
+              error 'No testhost.dll found in Debug build. Did you run `dotnet build -c Debug`?'
+            end
+            return matches[1] -- or let the user pick if multiple exist
           end,
         },
       }
 
       dap.adapters.netcoredbg = {
         type = 'executable',
-        command = '/home/nick/dev/netcoredbg/build/src/netcoredbg',
+        command = '/usr/bin/netcoredbg',
         args = { '--interpreter=vscode' },
       }
 
