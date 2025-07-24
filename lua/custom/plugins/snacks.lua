@@ -61,6 +61,27 @@ return {
       desc = 'Search Key Maps',
     },
     {
+      '<leader>ss',
+      function()
+        Snacks.picker.lsp_symbols()
+      end,
+      desc = 'Search Lsp Symbols',
+    },
+    {
+      '<leader>gs',
+      function()
+        Snacks.picker.git_status()
+      end,
+      desc = 'Git Status',
+    },
+    {
+      '<leader>se',
+      function()
+        Snacks.picker.explorer()
+      end,
+      desc = 'File explorer',
+    },
+    {
       '<leader>:',
       function()
         Snacks.picker.command_history()
