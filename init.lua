@@ -636,7 +636,7 @@ require('lazy').setup({
         -- clangd = {},
         gopls = {},
         -- csharp_ls = {},
-        omnisharp = {},
+        -- omnisharp = {},
         html = {},
         jsonls = {},
         elixirls = {},
@@ -1151,7 +1151,7 @@ vim.keymap.set('n', '<S-A-l>', ':vertical resize -5<CR>', { silent = true, norem
 vim.keymap.set('n', '<S-A-k>', ':horizontal resize +5<CR>', { silent = true, noremap = true })
 vim.keymap.set('n', '<S-A-j>', ':horizontal resize -5<CR>', { silent = true, noremap = true })
 
--- csharp language server LSP
+-- csharp language server LSP : https://github.com/SofusA/csharp-language-server
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'cs',
   callback = function(args)
