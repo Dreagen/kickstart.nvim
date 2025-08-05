@@ -1163,3 +1163,10 @@ vim.api.nvim_create_autocmd('FileType', {
     }
   end,
 })
+
+-- Set more granular undo points
+vim.keymap.set('i', ' ', ' <c-g>u')
+vim.keymap.set('i', '.', '.<c-g>u')
+vim.keymap.set('i', ',', ',<c-g>u')
+vim.keymap.set('i', '!', '!<c-g>u')
+vim.keymap.set('i', '?', '?<c-g>u')
