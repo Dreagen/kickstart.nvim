@@ -1,7 +1,6 @@
 return {
   {
     'ThePrimeagen/harpoon',
-    branch = 'harpoon2',
     keys = {
       {
         '<leader>H',

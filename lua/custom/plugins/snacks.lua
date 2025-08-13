@@ -14,7 +14,7 @@ return {
     {
       '<leader>sf',
       function()
-        Snacks.picker.smart()
+        Snacks.picker.files()
       end,
       desc = 'Smart Find Files',
     },
