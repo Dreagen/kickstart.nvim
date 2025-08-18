@@ -12,6 +12,7 @@ return {
       background_scanning = true,
     }
 
-    vim.keymap.set('n', '<leader>dt', dotnet.testrunner, { desc = 'Open .NET Test Runner' })
+    vim.keymap.set('n', '<leader>dt', dotnet.testrunner, { desc = '.NET Test Runner' })
+    vim.keymap.set('n', '<leader>db', dotnet.build_solution_quickfix, { desc = '.NET Build' })
   end,
 }
