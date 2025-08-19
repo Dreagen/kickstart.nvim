@@ -533,7 +533,7 @@ require('lazy').setup({
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
           -- This is overridden in omnisharp extended lua config
-          -- map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
           -- Find references for the word under your cursor.
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -637,6 +637,7 @@ require('lazy').setup({
         gopls = {},
         -- csharp_ls = {},
         -- omnisharp = {},
+        -- roslyn = {},
         html = {},
         jsonls = {},
         elixirls = {},
@@ -1152,17 +1153,17 @@ vim.keymap.set('n', '<S-A-k>', ':horizontal resize +5<CR>', { silent = true, nor
 vim.keymap.set('n', '<S-A-j>', ':horizontal resize -5<CR>', { silent = true, noremap = true })
 
 -- csharp language server LSP : https://github.com/SofusA/csharp-language-server
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'cs',
-  callback = function(args)
-    local root_dir = vim.fs.dirname(vim.fs.find({ '.sln', '.csproj', '.git' }, { upward = true })[1])
-    vim.lsp.start {
-      name = 'csharp-language-server',
-      cmd = { 'csharp-language-server' },
-      root_dir = root_dir,
-    }
-  end,
-})
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = 'cs',
+--   callback = function(args)
+--     local root_dir = vim.fs.dirname(vim.fs.find({ '.sln', '.csproj', '.git' }, { upward = true })[1])
+--     vim.lsp.start {
+--       name = 'csharp-language-server',
+--       cmd = { 'csharp-language-server' },
+--       root_dir = root_dir,
+--     }
+--   end,
+-- })
 
 -- Set more granular undo points
 vim.keymap.set('i', ' ', ' <c-g>u')
@@ -1170,3 +1171,6 @@ vim.keymap.set('i', '.', '.<c-g>u')
 vim.keymap.set('i', ',', ',<c-g>u')
 vim.keymap.set('i', '!', '!<c-g>u')
 vim.keymap.set('i', '?', '?<c-g>u')
+
+-- inline diagnostics
+vim.diagnostic.config { virtual_text = true }
