@@ -12,7 +12,8 @@ return {
       background_scanning = true,
     }
 
-    vim.keymap.set('n', '<leader>dt', dotnet.testrunner, { desc = '.NET Test Runner' })
-    vim.keymap.set('n', '<leader>db', dotnet.build_solution_quickfix, { desc = '.NET Build' })
+    vim.keymap.set('n', '<leader>dt', dotnet.testrunner, { desc = 'dotnet test runner' })
+    vim.keymap.set('n', '<leader>db', dotnet.build_solution_quickfix, { desc = 'dotnet build' })
+    vim.keymap.set('n', '<leader>dp', dotnet.project_view_default, { desc = 'Project View' })
   end,
 }
