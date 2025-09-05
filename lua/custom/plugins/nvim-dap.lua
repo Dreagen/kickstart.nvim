@@ -30,6 +30,12 @@ return {
             return matches[1] -- or let the user pick if multiple exist
           end,
         },
+        {
+          type = 'coreclr',
+          name = 'Attach to process',
+          request = 'attach',
+          processId = require('dap.utils').pick_process,
+        },
       }
 
       dap.adapters.netcoredbg = {
