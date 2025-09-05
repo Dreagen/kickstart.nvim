@@ -1,3 +1,5 @@
+-- for csharp development ensure netcoredbg is installed and available in the PATH
+-- https://github.com/Samsung/netcoredbg/
 return {
   {
     'mfussenegger/nvim-dap',
@@ -54,6 +56,11 @@ return {
         dap.continue()
       end, {
         desc = 'Continue',
+      })
+      vim.keymap.set('n', '<Leader>De', function()
+        dap.terminate()
+      end, {
+        desc = 'Terminate',
       })
       vim.keymap.set('n', '<F10>', function()
         dap.step_over()
