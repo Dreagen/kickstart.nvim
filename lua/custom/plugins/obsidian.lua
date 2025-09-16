@@ -28,7 +28,11 @@ return {
         path = '~/obsidian/vaults/work',
       },
     },
-
-    -- see below for full list of options 👇
+    -- Set conceallevel for Obsidian markdown files
+    note_id_func = function(title)
+      -- Setting conceallevel when entering Obsidian notes
+      vim.opt_local.conceallevel = 2
+      return title
+    end,
   },
 }
