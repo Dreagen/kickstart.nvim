@@ -52,13 +52,13 @@ return {
   },
   keys = {
     -- Top Pickers & Explorer
-    -- {
-    --   '<leader>sf',
-    --   function()
-    --     Snacks.picker.files()
-    --   end,
-    --   desc = 'Smart Find Files',
-    -- },
+    {
+      '<leader>sf',
+      function()
+        Snacks.picker.files()
+      end,
+      desc = 'Smart Find Files',
+    },
     {
       '<leader><leader>',
       function()
