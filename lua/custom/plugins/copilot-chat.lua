@@ -16,7 +16,7 @@ return {
       { '<leader>af', ':CopilotChatFix<CR>', mode = { 'v' } },
       { '<leader>ao', ':CopilotChatOptimize<CR>', mode = { 'v' } },
       { '<leader>at', ':CopilotChatTests<CR>', mode = { 'v' } },
-      { '<leader>am', ':CopilotChatCommit<CR>', mode = { 'n' } },
+      { '<leader>am', ':CopilotChatModels<CR>', mode = { 'n' } },
     },
   },
 }
