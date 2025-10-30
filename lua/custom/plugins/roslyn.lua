@@ -11,7 +11,7 @@ return {
   },
   config = function()
     -- Mason configuration for rzls
-    local rzls_path = vim.fn.expand('$MASON/packages/rzls/libexec')
+    local rzls_path = vim.fn.expand '$MASON/packages/rzls/libexec'
     local cmd = {
       'roslyn',
       '--stdio',

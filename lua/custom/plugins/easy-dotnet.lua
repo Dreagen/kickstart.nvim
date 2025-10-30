@@ -10,6 +10,9 @@ return {
       },
       picker = 'snacks',
       background_scanning = true,
+      lsp = {
+        enabled = false,
+      },
     }
 
     vim.keymap.set('n', '<leader>dt', dotnet.testrunner, { desc = 'dotnet test runner' })
