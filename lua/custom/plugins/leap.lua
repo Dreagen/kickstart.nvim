@@ -7,7 +7,7 @@ return {
     keys = {
       {
         's',
-        '<Plug>(leap-forward)',
+        '<Plug>(leap)',
         mode = { 'n', 'o', 'x' },
       },
       {
