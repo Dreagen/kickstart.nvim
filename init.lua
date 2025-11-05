@@ -1146,23 +1146,6 @@ function CloseOthers()
 end
 vim.api.nvim_create_user_command('CloseOthers', CloseOthers, {})
 
--- Neorg concealer fixes
--- These groups allow customization of the Neorg highlights
-vim.api.nvim_set_hl(0, '@neorg.markup.bold.norg', { link = 'NeorgCustomBold' })
-vim.api.nvim_set_hl(0, '@neorg.markup.italic.norg', { link = 'NeorgCustomItalic' })
-vim.api.nvim_set_hl(0, '@neorg.markup.strikethrough.norg', { link = 'NeorgCustomStrikethrough' })
-vim.api.nvim_set_hl(0, '@neorg.links.description.norg', { link = 'NeorgCustomLink' })
-
--- This autocommand allows for automatic concealing of Neorg files.
--- There is a plugin already that does that, but this is a failsafe.
-vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
-  pattern = { '*.norg' },
-  callback = function()
-    vim.opt.conceallevel = 2
-    vim.opt.concealcursor = 'nc'
-  end,
-})
-
 -- resize splits
 vim.keymap.set('n', '<S-A-h>', ':vertical resize +5<CR>', { silent = true, noremap = true })
 vim.keymap.set('n', '<S-A-l>', ':vertical resize -5<CR>', { silent = true, noremap = true })
@@ -1191,3 +1174,10 @@ vim.keymap.set('i', '?', '?<c-g>u')
 
 -- inline diagnostics
 vim.diagnostic.config { virtual_text = true }
+
+-- handle accidental upper case when saving
+vim.api.nvim_create_user_command('W', 'w', { bang = true })
+vim.api.nvim_create_user_command('Wa', 'wa', { bang = true })
+vim.api.nvim_create_user_command('Wq', 'wq', { bang = true })
+vim.api.nvim_create_user_command('Wqa', 'wqa', { bang = true })
+vim.api.nvim_create_user_command('Q', 'q', { bang = true })
