@@ -11,7 +11,7 @@ return {
       picker = 'snacks',
       background_scanning = true,
       lsp = {
-        enabled = false,
+        enabled = true,
       },
     }
 
